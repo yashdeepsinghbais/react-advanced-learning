@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throw Statement Demonstration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button, input {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        button {
+            cursor: pointer;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Custom Error Throwing Example</h2>
+    
+    <input type="number" id="input" placeholder="Enter marks (0-100)">
+    <button id="throwBtn">Validate Marks</button>
+    
+    <pre id="errorOutput"></pre>
+
+    <script>
+        const inputElement = document.getElementById("input");
+        const errorOutput = document.getElementById("errorOutput");
+        const throwBtn = document.getElementById("throwBtn");
+
+        throwBtn.addEventListener("click", function () {
+            try {
+                const rawValue = inputElement.value.trim();
+
+                // Check for empty input
+                if (rawValue === "") {
+                    throw new Error("Input cannot be empty. Enter a value from 0 to 100.");
+                }
+
+                const marks = Number(rawValue);
+
+                // Check if input is a valid number
+                if (Number.isNaN(marks)) {
+                    throw new Error("Please enter a valid numeric value.");
+                }
+
+                // Custom range validation
+                if (marks < 0 || marks > 100) {
+                    throw new Error("Invalid marks! Enter a value from 0 to 100.");
+                }
+
+                errorOutput.textContent = "Marks are valid: " + marks;
+
+            } catch (error) {
+                errorOutput.textContent = "Custom validation error: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
